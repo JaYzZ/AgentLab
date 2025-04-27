@@ -12,13 +12,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from attr import dataclass
-from browsergym.experiments.loop import ExpResult, StepInfo
 from langchain.schema import BaseMessage, HumanMessage
 from openai import OpenAI
-from PIL import Image
+from PIL import Image, ImageDraw
 
 from agentlab.analyze import inspect_results
 from agentlab.experiments.exp_utils import RESULTS_DIR
+from agentlab.experiments.loop import ExpResult, StepInfo
 from agentlab.experiments.study import get_most_recent_study
 from agentlab.llm.chat_api import make_system_message, make_user_message
 from agentlab.llm.llm_utils import BaseMessage as AgentLabBaseMessage
@@ -201,7 +201,6 @@ clicking the refresh button.
 """
             )
         with gr.Row():
-
             exp_dir_choice = gr.Dropdown(
                 choices=get_directory_contents(results_dir),
                 value=select_dir_instructions,
@@ -531,9 +530,47 @@ def if_active(tab_name, n_out=1):
     return decorator
 
 
+def tag_screenshot_with_action(screenshot: Image, action: str) -> Image:
+    """
+    If action is a coordinate action, try to render it on the screenshot.
+
+    e.g. mouse_click(120, 130) -> draw a dot at (120, 130) on the screenshot
+
+    Args:
+        screenshot: The screenshot to tag.
+        action: The action to tag the screenshot with.
+
+    Returns:
+        The tagged screenshot.
+
+    Raises:
+        ValueError: If the action parsing fails.
+    """
+    if action.startswith("mouse_click"):
+        try:
+            coords = action[action.index("(") + 1 : action.index(")")].split(",")
+            coords = [c.strip() for c in coords]
+            if len(coords) != 2:
+                raise ValueError(f"Invalid coordinate format: {coords}")
+            if coords[0].startswith("x="):
+                coords[0] = coords[0][2:]
+            if coords[1].startswith("y="):
+                coords[1] = coords[1][2:]
+            x, y = float(coords[0].strip()), float(coords[1].strip())
+            draw = ImageDraw.Draw(screenshot)
+            radius = 5
+            draw.ellipse(
+                (x - radius, y - radius, x + radius, y + radius), fill="red", outline="red"
+            )
+        except (ValueError, IndexError) as e:
+            warning(f"Failed to parse action '{action}': {e}")
+    return screenshot
+
+
 def update_screenshot(som_or_not: str):
     global info
-    return get_screenshot(info, som_or_not=som_or_not)
+    action = info.exp_result.steps_info[info.step].action
+    return tag_screenshot_with_action(get_screenshot(info, som_or_not=som_or_not), action)
 
 
 def get_screenshot(info: Info, step: int = None, som_or_not: str = "Raw Screenshots"):
@@ -550,6 +587,9 @@ def update_screenshot_pair(som_or_not: str):
     global info
     s1 = get_screenshot(info, info.step, som_or_not)
     s2 = get_screenshot(info, info.step + 1, som_or_not)
+
+    if s1 is not None:
+        s1 = tag_screenshot_with_action(s1, info.exp_result.steps_info[info.step].action)
     return s1, s2
 
 
@@ -617,7 +657,7 @@ def update_logs():
     try:
         return f"""{info.exp_result.logs}"""
     except FileNotFoundError:
-        return f"""No Logs"""
+        return """No Logs"""
 
 
 def update_stats():
@@ -757,11 +797,11 @@ def get_episode_info(info: Info):
 
         info = f"""\
 ### {env_args.task_name} (seed: {env_args.task_seed})
-### Step {info.step} / {len(steps_info)-1} (Reward: {cum_reward:.1f})
+### Step {info.step} / {len(steps_info) - 1} (Reward: {cum_reward:.1f})
 
 **Goal:**
 
-{code(str(AgentLabBaseMessage('', goal)))}
+{code(str(AgentLabBaseMessage("", goal)))}
 
 **Task info:**
 
@@ -770,7 +810,7 @@ def get_episode_info(info: Info):
 **exp_dir:**
 
 <small style="line-height: 1; margin: 0; padding: 0;">{code(exp_dir_str)}</small>"""
-    except Exception as e:
+    except Exception:
         info = f"""\
 **Error while getting episode info**
 {code(traceback.format_exc())}"""
@@ -942,7 +982,6 @@ def update_error_report():
 
 
 def new_exp_dir(exp_dir, progress=gr.Progress(), just_refresh=False):
-
     if exp_dir == select_dir_instructions:
         return None, None
 
@@ -1075,7 +1114,6 @@ def add_patch(ax, start, stop, color, label, edge=False):
 
 
 def plot_profiling(ax, step_info_list: list[StepInfo], summary_info: dict, progress_fn):
-
     if len(step_info_list) == 0:
         warning("No step info to plot")
         return None

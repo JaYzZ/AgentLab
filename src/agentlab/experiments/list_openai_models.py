@@ -12,4 +12,6 @@ if __name__ == "__main__":
     df["created"] = pd.to_datetime(df["created"], unit="s").dt.date
     df.sort_values(by="created", inplace=True)
     # Print all entries
-    print(df)
+
+    # print all entries
+    print(df.to_string(index=False))
