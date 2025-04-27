@@ -9,7 +9,7 @@ pytest-playwright
 pydantic~=2.9
 dask
 distributed
-browsergym>=0.7.1
+browsergym==0.13.3
 joblib>=1.2.0
 openai>=1.7,<2
 langchain_community
