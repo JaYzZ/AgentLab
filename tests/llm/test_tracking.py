@@ -27,10 +27,10 @@ def test_get_action_decorator():
 OPENROUTER_API_KEY_AVAILABLE = os.environ.get("OPENROUTER_API_KEY") is not None
 
 OPENROUTER_MODELS = (
-    "openai/o1-mini-2024-09-12",
+    "openai/o1-mini",
     "openai/o1-preview-2024-09-12",
-    "openai/gpt-4o-2024-08-06",
-    "openai/gpt-4o-2024-05-13",
+    "openai/gpt-4o",
+    "openai/gpt-4o",
     "anthropic/claude-3.5-sonnet:beta",
     "anthropic/claude-3.5-sonnet",
     "meta-llama/llama-3.1-405b-instruct",

@@ -17,7 +17,7 @@ import yaml
 from langchain.schema import BaseMessage
 from langchain_community.adapters.openai import convert_message_to_dict
 from PIL import Image
-from transformers import AutoModel, AutoTokenizer
+from transformers import AutoModel, AutoTokenizer, GPT2TokenizerFast
 
 if TYPE_CHECKING:
     from agentlab.llm.chat_api import ChatModel
@@ -171,6 +171,8 @@ def get_tokenizer_old(model_name="openai/gpt-4"):
         return tiktoken.encoding_for_model(model_name.split("/")[-1])
     if model_name.startswith("azure"):
         return tiktoken.encoding_for_model(model_name.split("/")[1])
+    if 'claude' in model_name:
+        return GPT2TokenizerFast.from_pretrained('Xenova/claude-tokenzier')
     if model_name.startswith("reka"):
         logging.warning(
             "Reka models don't have a tokenizer implemented yet. Using the default one."
@@ -187,7 +189,10 @@ def get_tokenizer(model_name="gpt-4"):
     except KeyError:
         logging.info(f"Could not find a tokenizer for model {model_name}. Trying HuggingFace.")
     try:
-        return AutoTokenizer.from_pretrained(model_name)
+        if 'claude' in model_name:
+            return GPT2TokenizerFast.from_pretrained('Xenova/claude-tokenzier')
+        else:
+            return AutoTokenizer.from_pretrained(model_name)
     except OSError:
         logging.info(f"Could not find a tokenizer for model {model_name}. Defaulting to gpt-4.")
     return tiktoken.encoding_for_model("gpt-4")

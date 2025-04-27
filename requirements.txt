@@ -4,6 +4,7 @@ pre-commit
 pytest==7.3.2
 flaky
 pytest-xdist
+playwright==1.47.0 # required for ubuntu 24.04 with python 3.12
 pytest-playwright
 dask
 distributed

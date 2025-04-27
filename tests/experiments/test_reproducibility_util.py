@@ -13,7 +13,7 @@ from agentlab.experiments import reproducibility_util
 
 @pytest.mark.parametrize(
     "benchmark_name",
-    ["miniwob", "workarena_l1", "webarena", "visualwebarena"],
+    ["miniwob", "workarena_l1", "workarena_l2_agent_curriculum_eval", "workarena_l3_agent_curriculum_eval", "webarena", "visualwebarena"],
 )
 def test_get_reproducibility_info(benchmark_name):
 

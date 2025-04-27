@@ -17,85 +17,61 @@ CLOSED_SOURCE_APIS = [
 ]
 
 CHAT_MODEL_ARGS_DICT = {
-    "openai/o3-mini-2025-01-31": OpenAIModelArgs(
-        model_name="o3-mini-2025-01-31",
-        max_total_tokens=200_000,
-        max_input_tokens=200_000,
-        max_new_tokens=100_000,
-        vision_support=False,
-    ),
-    "openai/gpt-4o-mini-2024-07-18": OpenAIModelArgs(
-        model_name="gpt-4o-mini-2024-07-18",
-        max_total_tokens=128_000,
-        max_input_tokens=128_000,
-        max_new_tokens=16_384,
-        vision_support=True,
-    ),
-    "openai/gpt-4-1106-preview": OpenAIModelArgs(
-        model_name="gpt-4-1106-preview",
-        max_total_tokens=128_000,
-        max_input_tokens=128_000,
-        max_new_tokens=4_096,
-    ),
-    "openai/gpt-4-vision-preview": OpenAIModelArgs(
-        model_name="gpt-4-vision-preview",
-        max_total_tokens=128_000,
-        max_input_tokens=128_000,
-        max_new_tokens=16_384,  # I think this model has very small default value if we don't set max_new_tokens
-        vision_support=True,
-    ),
-    "openai/gpt-4o-2024-05-13": OpenAIModelArgs(
-        model_name="gpt-4o-2024-05-13",
+    "openai/gpt-4o": OpenAIModelArgs(
+        model_name="gpt-4o",
         max_total_tokens=128_000,
         max_input_tokens=128_000,
         max_new_tokens=4_096,  # I think this model has very small default value if we don't set max_new_tokens
         vision_support=True,
     ),
-    "openai/gpt-3.5-turbo-0125": OpenAIModelArgs(
-        model_name="gpt-3.5-turbo-0125",
-        max_total_tokens=16_384,
-        max_input_tokens=16_384,
-        max_new_tokens=4096,
-    ),
-    "openai/gpt-3.5-turbo-1106": OpenAIModelArgs(
-        model_name="gpt-3.5-turbo-1106",
-        max_total_tokens=16_384,
-        max_input_tokens=16_384,
-        max_new_tokens=4096,
+    "openai/gpt-4o-mini": OpenAIModelArgs(
+        model_name="gpt-4o-mini",
+        max_total_tokens=128_000,
+        max_input_tokens=128_000,
+        max_new_tokens=16_384,
+        vision_support=True,
     ),
     "openai/o1-mini": OpenAIModelArgs(
-        model_name="openai/o1-mini",
+        model_name="o1-mini",
         max_total_tokens=128_000,
         max_input_tokens=128_000,
         max_new_tokens=64_000,
         temperature=1e-1,
     ),
-    "azure/gpt-35-turbo/gpt-35-turbo": AzureModelArgs(
-        model_name="gpt-35-turbo",
-        deployment_name="gpt-35-turbo",
-        max_total_tokens=8_192,
-        max_input_tokens=7500,
-        max_new_tokens=500,
+    "openai/o3-mini": OpenAIModelArgs(
+        model_name="o3-mini",
+        max_total_tokens=200_000,
+        max_input_tokens=200_000,
+        max_new_tokens=100_000,
+        vision_support=False,
     ),
-    "azure/gpt-4o-2024-05-13": AzureModelArgs(
+    "anthropic/claude-3.5-sonnet": OpenAIModelArgs(
+        model_name="claude-3-5-sonnet-latest",
+        max_total_tokens=200_000,
+        max_input_tokens=200_000,
+        max_new_tokens=8_192,
+        temperature=1e-1,
+        vision_support=True,
+    ),
+    "anthropic/claude-3.7-sonnet": OpenAIModelArgs(
+        model_name="claude-3-7-sonnet-20250219",
+        max_total_tokens=200_000,
+        max_input_tokens=200_000,
+        max_new_tokens=8_192,
+        temperature=1e-1,
+        vision_support=True,
+    ),
+    "azure/gpt-4o": AzureModelArgs(
         model_name="gpt-4o",
-        deployment_name="gpt-4o-2024-05-13",
+        deployment_name="gpt-4o",
         max_total_tokens=128_000,
         max_input_tokens=100_000,
         max_new_tokens=16_384,
         vision_support=True,
     ),
-    "azure/gpt-4o-2024-08-06": AzureModelArgs(
-        model_name="gpt-4o",
-        deployment_name="gpt-4o-2024-08-06",
-        max_total_tokens=128_000,
-        max_input_tokens=128_000,
-        max_new_tokens=16_384,
-        vision_support=True,
-    ),
-    "azure/gpt-4o-mini-2024-07-18": AzureModelArgs(
+    "azure/gpt-4o-mini": AzureModelArgs(
         model_name="gpt-4o-mini",
-        deployment_name="gpt-4o-mini-2024-07-18",
+        deployment_name="gpt-4o-mini",
         max_total_tokens=128_000,
         max_input_tokens=128_000,
         max_new_tokens=16_384,
@@ -169,34 +145,11 @@ CHAT_MODEL_ARGS_DICT = {
         max_new_tokens=28_000,
         temperature=1e-1,
     ),
-    "openrouter/anthropic/claude-3.5-sonnet:beta": OpenRouterModelArgs(
-        model_name="anthropic/claude-3.5-sonnet:beta",
-        max_total_tokens=200_000,
-        max_input_tokens=200_000,
-        max_new_tokens=8_192,
-        temperature=1e-1,
-        vision_support=True,
-    ),
     "openrouter/qwen/qwen-2-72b-instruct": OpenRouterModelArgs(
         model_name="qwen/qwen-2-72b-instruct",
         max_total_tokens=32_000,
         max_input_tokens=30_000,
         max_new_tokens=2_000,
-        temperature=1e-1,
-    ),
-    "openrouter/anthropic/claude-3.7-sonnet": OpenRouterModelArgs(
-        model_name="anthropic/claude-3.7-sonnet",
-        max_total_tokens=200_000,
-        max_input_tokens=200_000,
-        max_new_tokens=8_192,
-        temperature=1e-1,
-        vision_support=True,
-    ),
-    "openrouter/openai/o1-mini-2024-09-12": OpenRouterModelArgs(
-        model_name="openai/o1-mini-2024-09-12",
-        max_total_tokens=128_000,
-        max_input_tokens=128_000,
-        max_new_tokens=64_000,
         temperature=1e-1,
     ),
 }

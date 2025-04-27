@@ -57,54 +57,6 @@ AGENT_CUSTOM = GenericAgentArgs(
     flags=FLAGS_CUSTOM,
 )
 
-
-# GPT-3.5 default config
-FLAGS_GPT_3_5 = GenericPromptFlags(
-    obs=dp.ObsFlags(
-        use_html=False,  # too big for most benchmark except miniwob
-        use_ax_tree=True,  # very useful
-        use_focused_element=True,  # detrimental on minowob according to ablation study
-        use_error_logs=True,
-        use_history=True,
-        use_past_error_logs=False,  # very detrimental on L1 and miniwob
-        use_action_history=True,  # helpful on miniwob
-        use_think_history=False,  # detrimental on L1 and miniwob
-        use_diff=False,
-        html_type="pruned_html",
-        use_screenshot=False,
-        use_som=False,
-        extract_visible_tag=True,  # doesn't change much
-        extract_clickable_tag=False,  # doesn't change much
-        extract_coords="False",
-        filter_visible_elements_only=False,
-    ),
-    action=dp.ActionFlags(
-        action_set=bgym.HighLevelActionSetArgs(
-            subsets=["bid"],
-            multiaction=False,
-        ),
-        long_description=False,
-        individual_examples=True,
-    ),
-    use_plan=False,  # usually detrimental
-    use_criticise=False,  # usually detrimental
-    use_thinking=True,  # very useful
-    use_memory=False,
-    use_concrete_example=True,  # useful
-    use_abstract_example=True,  # useful
-    use_hints=True,  # useful
-    enable_chat=False,
-    max_prompt_tokens=40_000,
-    be_cautious=True,
-    extra_instructions=None,
-)
-
-
-AGENT_3_5 = GenericAgentArgs(
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-3.5-turbo-1106"],
-    flags=FLAGS_GPT_3_5,
-)
-
 # llama3-70b default config
 FLAGS_LLAMA3_70B = GenericPromptFlags(
     obs=dp.ObsFlags(
@@ -251,52 +203,38 @@ FLAGS_GPT_4o = GenericPromptFlags(
     extra_instructions=None,
 )
 
-AGENT_4o = GenericAgentArgs(
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o-2024-05-13"],
-    flags=FLAGS_GPT_4o,
-)
-
-AGENT_4o_MINI = GenericAgentArgs(
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o-mini-2024-07-18"],
-    flags=FLAGS_GPT_4o,
-)
-AGENT_CLAUDE_SONNET_35 = GenericAgentArgs(
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openrouter/anthropic/claude-3.5-sonnet:beta"],
-    flags=FLAGS_GPT_4o,
-)
-AGENT_37_SONNET = GenericAgentArgs(
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openrouter/anthropic/claude-3.7-sonnet"],
-    flags=FLAGS_GPT_4o,
-)
-AGENT_o3_MINI = GenericAgentArgs(
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/o3-mini-2025-01-31"],
-    flags=FLAGS_GPT_4o,
-)
-
-AGENT_o1_MINI = GenericAgentArgs(
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openrouter/openai/o1-mini-2024-09-12"],
-    flags=FLAGS_GPT_4o,
-)
-# GPT-4o vision default config
 FLAGS_GPT_4o_VISION = FLAGS_GPT_4o.copy()
 FLAGS_GPT_4o_VISION.obs.use_screenshot = True
 FLAGS_GPT_4o_VISION.obs.use_som = True
 
-AGENT_4o_VISION = GenericAgentArgs(
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o-2024-05-13"],
-    flags=FLAGS_GPT_4o_VISION,
+AGENT_4o = GenericAgentArgs(
+    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o"],
+    flags=FLAGS_GPT_4o,
 )
-
-AGENT_4o_MINI_VISION = GenericAgentArgs(
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o-mini-2024-07-18"],
-    flags=FLAGS_GPT_4o_VISION,
+AGENT_4o_MINI = GenericAgentArgs(
+    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o-mini"],
+    flags=FLAGS_GPT_4o,
 )
-
+AGENT_o1_MINI = GenericAgentArgs(
+    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/o1-mini"],
+    flags=FLAGS_GPT_4o,
+)
+AGENT_o3_MINI = GenericAgentArgs(
+    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/o3-mini"],
+    flags=FLAGS_GPT_4o,
+)
+AGENT_CLAUDE_SONNET_35 = GenericAgentArgs(
+    chat_model_args=CHAT_MODEL_ARGS_DICT["anthropic/claude-3.5-sonnet"],
+    flags=FLAGS_GPT_4o,
+)
 AGENT_CLAUDE_SONNET_35_VISION = GenericAgentArgs(
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openrouter/anthropic/claude-3.5-sonnet:beta"],
+    chat_model_args=CHAT_MODEL_ARGS_DICT["anthropic/claude-3.5-sonnet"],
     flags=FLAGS_GPT_4o_VISION,
 )
-
+AGENT_37_SONNET = GenericAgentArgs(
+    chat_model_args=CHAT_MODEL_ARGS_DICT["anthropic/claude-3.7-sonnet"],
+    flags=FLAGS_GPT_4o,
+)
 
 DEFAULT_RS_FLAGS = GenericPromptFlags(
     flag_group="default_rs",
@@ -342,6 +280,6 @@ DEFAULT_RS_FLAGS = GenericPromptFlags(
 
 
 RANDOM_SEARCH_AGENT = GenericAgentArgs(
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o-2024-05-13"],
+    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o"],
     flags=DEFAULT_RS_FLAGS,
 )

@@ -22,8 +22,8 @@ else:
 @pytest.mark.skipif(skip_tests, reason="Skipping on remote as Azure is pricy")
 def test_api_model_args_azure():
     model_args = AzureModelArgs(
-        model_name="gpt-35-turbo",
-        deployment_name="gpt-35-turbo",
+        model_name="gpt-4o-mini",
+        deployment_name="gpt-4o-mini",
         max_total_tokens=8192,
         max_input_tokens=8192 - 512,
         max_new_tokens=512,

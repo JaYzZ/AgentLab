@@ -129,7 +129,7 @@ env_args = bgym.EnvArgs(
     headless=True,
 )
 
-chat_model_args = CHAT_MODEL_ARGS_DICT["openai/gpt-4o-mini-2024-07-18"]
+chat_model_args = CHAT_MODEL_ARGS_DICT["openai/gpt-4o-mini"]
 
 # example for 2 experiments testing chain of thoughts on a miniwob task
 exp_args = [

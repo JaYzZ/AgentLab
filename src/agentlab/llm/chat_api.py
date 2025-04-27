@@ -269,7 +269,10 @@ class ChatModel(AbstractChatModel):
             self.output_cost = 0.0
 
         client_args = client_args or {}
+        base_url = os.getenv('OPENAI_API_BASE')
+
         self.client = client_class(
+            base_url=base_url if base_url else None,
             api_key=api_key,
             **client_args,
         )

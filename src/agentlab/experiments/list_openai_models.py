@@ -6,7 +6,7 @@ if __name__ == "__main__":
     df = pd.DataFrame([dict(model) for model in models.data])
 
     # Filter GPT models or o1 models
-    df = df[df["id"].str.contains("gpt") | df["id"].str.contains("o1")]
+    df = df[df["id"].str.contains("gpt") | df["id"].str.contains("o1") | df["id"].str.contains("sonnet")]
 
     # Convert Unix timestamps to dates (YYYY-MM-DD) and remove time
     df["created"] = pd.to_datetime(df["created"], unit="s").dt.date

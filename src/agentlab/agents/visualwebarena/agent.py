@@ -288,12 +288,12 @@ WebArenaAgent = partial(
 
 WA_AGENT_4O_MINI = WebArenaAgent(
     temperature=0.1,
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o-mini-2024-07-18"],
+    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o-mini"],
 )
 
 WA_AGENT_4O = WebArenaAgent(
     temperature=0.1,
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o-mini-2024-07-18"],
+    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o-mini"],
 )
 
 WA_AGENT_SONNET = WebArenaAgent(
@@ -303,12 +303,12 @@ WA_AGENT_SONNET = WebArenaAgent(
 
 VWA_AGENT_4O_MINI = VisualWebArenaAgentArgs(
     temperature=0.1,
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o-mini-2024-07-18"],
+    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o-mini"],
 )
 
 VWA_AGENT_4O = VisualWebArenaAgentArgs(
     temperature=0.1,
-    chat_model_args=CHAT_MODEL_ARGS_DICT["azure/gpt-4o-2024-08-06"],
+    chat_model_args=CHAT_MODEL_ARGS_DICT["azure/gpt-4o"],
 )
 
 VWA_AGENT_SONNET = VisualWebArenaAgentArgs(
