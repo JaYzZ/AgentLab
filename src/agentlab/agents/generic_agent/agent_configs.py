@@ -10,6 +10,7 @@ from agentlab.llm.llm_configs import CHAT_MODEL_ARGS_DICT
 
 from .generic_agent import GenericAgentArgs
 from .generic_agent_prompt import GenericPromptFlags
+from .tmlr_config import BASE_FLAGS
 
 FLAGS_CUSTOM = GenericPromptFlags(
     obs=dp.ObsFlags(
@@ -234,6 +235,10 @@ AGENT_CLAUDE_SONNET_35_VISION = GenericAgentArgs(
 AGENT_37_SONNET = GenericAgentArgs(
     chat_model_args=CHAT_MODEL_ARGS_DICT["anthropic/claude-3.7-sonnet"],
     flags=FLAGS_GPT_4o,
+)
+AGENT_LLAMA4_17B_INSTRUCT = GenericAgentArgs(
+    chat_model_args=CHAT_MODEL_ARGS_DICT["openrouter/meta-llama/llama-4-maverick"],
+    flags=BASE_FLAGS,
 )
 
 DEFAULT_RS_FLAGS = GenericPromptFlags(

@@ -9,6 +9,7 @@ a few configurations that can be used to run it on different environments.
 from .agent_configs import (
     AGENT_8B,
     AGENT_CUSTOM,
+    AGENT_LLAMA4_17B_INSTRUCT,
     AGENT_LLAMA3_70B,
     AGENT_LLAMA31_70B,
     RANDOM_SEARCH_AGENT,
@@ -29,6 +30,7 @@ __all__ = [
     "AGENT_CLAUDE_SONNET_35",
     "AGENT_CLAUDE_SONNET_35_VISION",
     "AGENT_37_SONNET",
+    "AGENT_LLAMA4_17B_INSTRUCT",
     "AGENT_LLAMA3_70B",
     "AGENT_LLAMA31_70B",
     "AGENT_8B",
